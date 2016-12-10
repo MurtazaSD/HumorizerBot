@@ -1,0 +1,2 @@
+WARN  2016-12-09 23:33:20,254 [main] org.hibernate.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.
+WARN  2016-12-09 23:35:22,713 [main] org.hibernate.ejb.HibernatePersistence - HHH015016: Encountered a deprecated javax.persistence.spi.PersistenceProvider [org.hibernate.ejb.HibernatePersistence]; use [org.hibernate.jpa.HibernatePersistenceProvider] instead.

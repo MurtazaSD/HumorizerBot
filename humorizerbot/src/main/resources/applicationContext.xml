@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd
+    					   http://www.springframework.org/schema/context
+    					   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+      					   http://www.springframework.org/schema/tx
+						   http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+						   http://www.springframework.org/schema/util
+    					   http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	<context:component-scan base-package="com.atmlabs.*" />
+	<bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+ 		<property name="location">
+			<value>file:${configFileLocation}</value>
+		</property>
+	</bean>
+
+
+    <bean id="springApplicationContext" class="com.atmlabs.humorizerbot.util.SpringApplicationContext"/>
+        
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:persistence.xml" />
+		<property name="persistenceUnitName" value="humorizerbotPU" /> 
+		<property name="dataSource" ref="humorizerDataSource" />
+		<property name="packagesToScan" value="com.atmlabs.humorizerbot.repositories" />
+	</bean>
+    
+	 <bean id="humorizerDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="${humorizer.db.jdbc.url}"/>
+   	    <property name="username" value="${humorizer.db.jdbc.username}"/>
+        <property name="password" value="${humorizer.db.jdbc.password}"/>
+    </bean>    
+
+
+   	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+      <property name="entityManagerFactory" ref="emf" />
+   	</bean>  
+   
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+ 
+   <tx:annotation-driven proxy-target-class="true" />	
+ 
+   <bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+</beans>

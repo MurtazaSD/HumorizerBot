@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<RollingFile name="ATMLABS_APP_LOG" fileName="${sys:atmlabs.humorizer.home}/logs/app.log"
+			filePattern="${sys:atmlabs.humorizer.home}/logs/atmlabsapp-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout pattern="%-5p %d [%t] %c - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+
+		</RollingFile>
+
+
+		<RollingFile name="ATMLABS_SPRING_LOG" fileName="${sys:atmlabs.humorizer.home}/logs/atmlabsspringlog.log"
+			filePattern="${sys:atmlabs.humorizer.home}/logs/atmlabsspring-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout pattern="%-5p %d [%t] %c - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+
+		</RollingFile>
+
+		<RollingFile name="ATMLABS_JPA_LOG" fileName="${sys:atmlabs.humorizer.home}/logs/atmlabsjpalog.log"
+			filePattern="${sys:atmlabs.humorizer.home}/logs/atmlabsjpa-%d{MM-dd-yyyy}-%i.log">
+			<PatternLayout pattern="%-5p %d [%t] %c - %m%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+
+		</RollingFile>
+		
+	</Appenders>
+	<Loggers>
+		<Logger name="com.atmlabs.humorizerbot" additivity="false" level="ALL">
+			<AppenderRef ref="ATMLABS_APP_LOG" />
+		</Logger>
+		<Logger name="org.springframework.core.env.StandardEnvironment" additivity="false" level="WARN">
+			<AppenderRef ref="ATMLABS_SPRING_LOG" />
+		</Logger>
+		<Logger name="org.springframework.ws" additivity="false" level="WARN">
+			<AppenderRef ref="ATMLABS_SPRING_LOG" />
+		</Logger>
+		<Logger name="org.springframework.oxm" additivity="false" level="WARN">
+			<AppenderRef ref="ATMLABS_SPRING_LOG" />
+		</Logger>
+		<Logger name="org.hibernate" additivity="false" level="WARN">
+			<AppenderRef ref="ATMLABS_JPA_LOG" />
+		</Logger>
+
+		<root level="WARN">
+			<AppenderRef ref="ATMLABS_APP_LOG" />
+		</root>
+	</Loggers>
+</Configuration>
